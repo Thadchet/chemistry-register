@@ -1,7 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { MOCK_INVENTORY } from "../constatnts";
+import axios from "axios";
 
 const Inventory = () => {
+  const [inventory, setInventory] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:9000/inventory")
+      .then((res) => {
+        console.log(res.data);
+        setInventory(res.data.message);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <div>
       <nav class="navbar navbar-expand-lg navbar-light bg-primary">
@@ -76,20 +89,22 @@ const Inventory = () => {
               <th scope="col">Packing Size</th>
               <th scope="col">Owner</th>
               <th scope="col">Storage Location</th>
+              <th scope="col">Unit</th>
             </tr>
           </thead>
           <tbody>
-            {MOCK_INVENTORY.map((item) => (
+            {inventory.map((item) => (
               <tr>
-                <th scope="row">{item}</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
+                <th scope="row">{item.code}</th>
+                <td scope="row">{item.chemical_name}</td>
+                <td scope="row">{item.cus_no}</td>
+                <td scope="row">{item.state}</td>
+                <td scope="row">{item.un_class}</td>
+                <td scope="row">{item.un_no}</td>
+                <td scope="row">{item.packing_size}</td>
+                <td scope="row">{item.owner}</td>
+                <td scope="row">{item.storage}</td>
+                <td scope="row">{item.packing_unit}</td>
               </tr>
             ))}
           </tbody>
