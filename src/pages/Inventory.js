@@ -7,7 +7,7 @@ const Inventory = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:9000/inventory")
+      .get("http://13.214.209.62/test/api/inventory")
       .then((res) => {
         console.log(res.data);
         setInventory(res.data.message);

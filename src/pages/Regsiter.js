@@ -28,7 +28,7 @@ const Register = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:9000/inventory/latest")
+      .get("http://13.214.209.62/test/api/inventory/latest")
       .then((res) => {
         if (res.data.message.length === 0) {
           setInitSerialNumber(1);
@@ -55,7 +55,7 @@ const Register = () => {
     console.log(payload);
     setIsLoading(true);
     axios
-      .post("http://localhost:9000/add/inventory", payload)
+      .post("http://13.214.209.62/test/api/add/inventory", payload)
       .then((res) => {
         console.log(res);
         setIsLoading(false);
