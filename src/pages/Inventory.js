@@ -4,6 +4,7 @@ import axios from "axios";
 
 const Inventory = () => {
   const [inventory, setInventory] = useState([]);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     axios
@@ -14,6 +15,18 @@ const Inventory = () => {
       })
       .catch((err) => console.log(err));
   }, []);
+
+  const searchInventory = (event) => {
+    event.preventDefault();
+    console.log(search);
+    axios
+      .get("http://13.214.209.62/test/api/inventory", { params: { search } })
+      .then((res) => {
+        console.log(res.data);
+        setInventory(res.data.message);
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div>
@@ -55,7 +68,7 @@ const Inventory = () => {
       </nav>
       <div class="container">
         <p class="fs-1 fw-bold mt-4">Inventory</p>
-        <form>
+        <form onSubmit={searchInventory}>
           <div class="row g-3 align-items-center">
             <div class="col-auto">
               <label for="inputPassword6" class="col-form-label">
@@ -68,6 +81,7 @@ const Inventory = () => {
                 id="inputPassword6"
                 class="form-control"
                 aria-describedby="passwordHelpInline"
+                onChange={(e) => setSearch(e.target.value)}
               />
             </div>
             <div class="col-auto">
